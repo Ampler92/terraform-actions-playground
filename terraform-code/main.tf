@@ -3,6 +3,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "test_rg" {
-  location = "westeurope"
+  location = "germanywestcentral"
   name     = "klaus-test-rg"
 }
