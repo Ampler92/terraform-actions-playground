@@ -17,16 +17,19 @@ jobs:
       run:
         shell: bash
         working-directory: terraform-code
+    permissions:
+      contents: write
+      id-token: write
+
     env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-      STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-      CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
-    
-    
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_USE_OIDC: true
+      RESOURCE_GROUP: "klaus-test-st-rg"
+      STORAGE_ACCOUNT: "tfstateklaus"
+      CONTAINER_NAME: "tfstate"
+
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -42,7 +45,6 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
-
 
       - name: Terraform Format
         if: github.event_name == 'pull_request'
