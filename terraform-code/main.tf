@@ -3,6 +3,10 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "test_rg" {
-  location = "germanywestcentral"
+  location = "westeurope"
   name     = "klaus-test-rg"
+}
+
+terraform {
+  backend "local" {}
 }
