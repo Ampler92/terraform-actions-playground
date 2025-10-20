@@ -4,5 +4,5 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "test_rg" {
   location = "germanywestcentral"
-  name     = "klaus-test-rg"
+  name     = "klaus-test-new-rg"
 }
